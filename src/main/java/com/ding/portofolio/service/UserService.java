@@ -22,22 +22,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getMyUserInfo(UserLoginDto userLoginDto) throws Exception {
-        User loginedUser = this.login(userLoginDto);
-        if(loginedUser == null) {
-            throw new Exception("Login data is not correct");
-        }
-        return null;
+    public User getMyUserInfo(Long id) {
+        Optional<User> optionalUser = this.userRepository.findById(id);
+        return optionalUser.orElse(null);
     }
 
-    public Boolean register(UserDto userDto) throws Exception {
+    public void register(UserDto userDto) throws Exception {
         Optional<User> optionalUser = this.userRepository.findByEmail(userDto.getEmail());
-        if(optionalUser.isEmpty()) {
-            User user = optionalUser.get();
-            this.userRepository.save(user);
-            return true;
+        if(optionalUser.isPresent()) {
+            throw new Exception("This user has already registered");
         }
-        return false;
+        User user = UserDto.convert(userDto);
+        this.userRepository.save(user);
     }
 
     public User login(UserLoginDto userLoginDto) throws Exception {

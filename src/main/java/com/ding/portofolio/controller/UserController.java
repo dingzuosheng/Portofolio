@@ -1,7 +1,6 @@
 package com.ding.portofolio.controller;
 
 import com.ding.portofolio.DTO.UserDto;
-import com.ding.portofolio.DTO.UserLoginDto;
 import com.ding.portofolio.model.Project;
 import com.ding.portofolio.model.User;
 import com.ding.portofolio.service.UserService;
@@ -16,16 +15,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<User> getMyUserInfo(@RequestBody UserLoginDto userLoginDto) throws Exception {
-        User user = this.userService.getMyUserInfo(userLoginDto);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserInfo(@PathVariable("id") Long id) {
+        User user = this.userService.getMyUserInfo(id);
         if(user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -34,10 +33,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody UserDto userDto) throws Exception {
-        if(this.userService.register(userDto)) {
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.badRequest().build();
+        this.userService.register(userDto);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/projects")

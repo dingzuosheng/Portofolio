@@ -1,17 +1,11 @@
 package com.ding.portofolio.model;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeBinderType;
 
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,8 +18,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "firstname")
+    private String firstname;
 
     @Column(name = "lastname")
     private String lastname;
@@ -38,8 +32,10 @@ public class User {
 
     @Column(name = "occupation")
     private String occupation;
-    @Column(name = "is_admin")
-    private Boolean isAdmin;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
 
     @Column(name = "project_data")
     private ProjectData projectData;
