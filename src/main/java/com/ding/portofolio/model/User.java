@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,9 +40,17 @@ public class User {
     @Column(name = "role")
     private Role role;
 
-    @Column(name = "project_data")
-    private ProjectData projectData;
+    @OneToMany
+    private List<Project> projects = new ArrayList<>();
 
-    @Column(name = "training_data")
-    private TrainingData trainingData;
+    @OneToMany
+    private List<Training> trainings = new ArrayList<>();
+
+    public void addProject(Project project) {
+        projects.add(project);
+    }
+
+    public void removeProject(Project project) {
+        projects.remove(project);
+    }
 }

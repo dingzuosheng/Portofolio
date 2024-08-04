@@ -2,6 +2,8 @@ package com.ding.portofolio.DTO;
 
 import com.ding.portofolio.model.*;
 
+import java.util.List;
+
 public class UserDto {
     private Long id;
     private String firstname;
@@ -10,8 +12,8 @@ public class UserDto {
     private String password;
     private String occupation;
     private Role role;
-    private ProjectData projectData;
-    private TrainingData trainingData;
+    private List<Project> projects;
+    private List<Training> trainings;
 
     public Long getId() {
         return id;
@@ -69,20 +71,20 @@ public class UserDto {
         this.role = role;
     }
 
-    public ProjectData getProjectData() {
-        return projectData;
+    public List<Project> getProjects() {
+        return projects;
     }
 
-    public void setProjectData(ProjectData projectData) {
-        this.projectData = projectData;
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
-    public TrainingData getTrainingData() {
-        return trainingData;
+    public List<Training> getTrainings() {
+        return trainings;
     }
 
-    public void setTrainingData(TrainingData trainingData) {
-        this.trainingData = trainingData;
+    public void setTrainings(List<Training> trainings) {
+        this.trainings = trainings;
     }
 
     public static User convert(final UserDto userDto) {
@@ -97,8 +99,8 @@ public class UserDto {
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
         user.setOccupation(userDto.getOccupation());
-        user.setProjectData(userDto.getProjectData());
-        user.setTrainingData(userDto.getTrainingData());
+        user.setProjects(userDto.getProjects());
+        user.setTrainings(userDto.getTrainings());
 
         return user;
     }
@@ -116,8 +118,8 @@ public class UserDto {
         userDto.setPassword(user.getPassword());
         userDto.setOccupation(user.getOccupation());
         userDto.setRole(user.getRole());
-        userDto.setProjectData(user.getProjectData());
-        userDto.setTrainingData(user.getTrainingData());
+        userDto.setProjects(user.getProjects());
+        userDto.setTrainings(user.getTrainings());
 
         return userDto;
     }
