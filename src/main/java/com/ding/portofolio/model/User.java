@@ -53,4 +53,12 @@ public class User {
     public void removeProject(Project project) {
         projects.remove(project);
     }
+
+    public void addTraining(Training training) {
+        trainings.add(training);
+    }
+
+    public void removeTraining(Training training) {
+        trainings.remove(training);
+    }
 }

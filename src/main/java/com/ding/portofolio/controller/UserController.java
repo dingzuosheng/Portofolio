@@ -1,11 +1,13 @@
 package com.ding.portofolio.controller;
 
 import com.ding.portofolio.DTO.ProjectDto;
+import com.ding.portofolio.DTO.TrainingDto;
 import com.ding.portofolio.DTO.UserDto;
 import com.ding.portofolio.exception.ProjectNotValidException;
 import com.ding.portofolio.exception.UserNotExistException;
 import com.ding.portofolio.exception.UserNotValidException;
 import com.ding.portofolio.model.Project;
+import com.ding.portofolio.model.Training;
 import com.ding.portofolio.model.User;
 import com.ding.portofolio.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +52,17 @@ public class UserController {
     public ResponseEntity<List<Project>> getAllProjects(@PathVariable("id") Long id) {
         List<Project> projects = this.userService.getAllProjects(id);
         return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/trainings")
+    public ResponseEntity<Void> saveTraining(@PathVariable("id") Long id, @RequestBody TrainingDto training) {
+        this.userService.addTrainingToUser(id, training);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/trainings")
+    public ResponseEntity<List<Training>> getAllTrainings(@PathVariable("id")Long id) {
+        List<Training> trainings = this.userService.getAllTrainings(id);
+        return new ResponseEntity<>(trainings, HttpStatus.OK);
     }
 }
