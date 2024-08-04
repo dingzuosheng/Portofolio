@@ -2,6 +2,9 @@ package com.ding.portofolio.controller;
 
 import com.ding.portofolio.DTO.ProjectDto;
 import com.ding.portofolio.DTO.UserDto;
+import com.ding.portofolio.exception.ProjectNotValidException;
+import com.ding.portofolio.exception.UserNotExistException;
+import com.ding.portofolio.exception.UserNotValidException;
 import com.ding.portofolio.model.Project;
 import com.ding.portofolio.model.User;
 import com.ding.portofolio.service.UserService;
@@ -23,28 +26,28 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserInfo(@PathVariable("id") Long id) {
+    public ResponseEntity<User> getUserInfo(@PathVariable("id") Long id) throws UserNotExistException {
         User user = this.userService.getMyUserInfo(id);
         if(user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        throw new UserNotExistException("User not found");
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody UserDto userDto) throws Exception {
+    public ResponseEntity<Void> register(@RequestBody UserDto userDto) {
         this.userService.register(userDto);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{id}/projects")
-    public ResponseEntity<Void> saveProject(@PathVariable("id") Long id, @RequestBody ProjectDto project) throws Exception {
+    public ResponseEntity<Void> saveProject(@PathVariable("id") Long id, @RequestBody ProjectDto project) throws UserNotValidException, ProjectNotValidException, UserNotExistException {
         this.userService.addProjectToUser(id, project);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}/projects")
-    public ResponseEntity<List<Project>> getAllProjects(@PathVariable("id") Long id) throws Exception {
+    public ResponseEntity<List<Project>> getAllProjects(@PathVariable("id") Long id) {
         List<Project> projects = this.userService.getAllProjects(id);
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }

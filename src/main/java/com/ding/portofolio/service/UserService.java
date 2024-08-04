@@ -4,6 +4,7 @@ package com.ding.portofolio.service;
 import com.ding.portofolio.DTO.ProjectDto;
 import com.ding.portofolio.DTO.UserDto;
 import com.ding.portofolio.DTO.UserLoginDto;
+import com.ding.portofolio.exception.*;
 import com.ding.portofolio.mapper.ProjectMapper;
 import com.ding.portofolio.model.Project;
 import com.ding.portofolio.model.User;
@@ -11,7 +12,6 @@ import com.ding.portofolio.repository.ProjectRepository;
 import com.ding.portofolio.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,34 +34,34 @@ public class UserService {
         return optionalUser.orElse(null);
     }
 
-    public void register(UserDto userDto) throws Exception {
+    public void register(UserDto userDto) {
         Optional<User> optionalUser = this.userRepository.findByEmail(userDto.getEmail());
         if(optionalUser.isPresent()) {
-            throw new Exception("This user has already registered");
+            throw new UserAlreadyExistException("This user has already registered");
         }
         User user = UserDto.convert(userDto);
         this.userRepository.save(user);
     }
 
-    public User login(UserLoginDto userLoginDto) throws Exception {
+    public User login(UserLoginDto userLoginDto) {
         if(userLoginDto == null) {
-            throw new Exception("Please give your email and password");
+            throw new LoginException("Please give your email and password");
         }
         Optional<User> optionalUser = this.userRepository.findByEmailAndPassword(userLoginDto.getEmail(), userLoginDto.getPassword());
         return optionalUser.orElse(null);
     }
 
-    public void addProjectToUser(Long id, ProjectDto projectDto) throws Exception {
+    public void addProjectToUser(Long id, ProjectDto projectDto) throws UserNotValidException, ProjectNotValidException, UserNotExistException {
         if(id == null) {
-            throw new Exception("User is not valid");
+            throw new UserNotValidException("User is not valid");
         }
         if(projectDto == null) {
-            throw new Exception("Project is no valid");
+            throw new ProjectNotValidException("Project is no valid");
         }
 
         Optional<User> optionalUser = this.userRepository.findById(id);
         if(optionalUser.isEmpty()){
-            throw new Exception("This User doesn't exist");
+            throw new UserNotExistException("This User doesn't exist");
         }
 
         User user = optionalUser.get();
@@ -75,10 +75,10 @@ public class UserService {
         }
     }
 
-    public List<Project> getAllProjects(Long userId) throws Exception {
+    public List<Project> getAllProjects(Long userId) throws UserNotExistException {
         Optional<User> optionalUser = this.userRepository.findById(userId);
         if(optionalUser.isEmpty()) {
-            throw new Exception("This user doesn't exist");
+            throw new UserNotExistException("This user doesn't exist");
         }
 
         User user = optionalUser.get();
