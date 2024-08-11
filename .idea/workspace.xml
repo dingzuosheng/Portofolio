@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14b9ec27-523a-433c-ae2e-02ad7264a219" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="14b9ec27-523a-433c-ae2e-02ad7264a219" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/ding/Desktop/Selbstlernen/Portofolio",
+    "last_opened_file_path": "C:/Users/ding/Desktop/Selbstlernen/Portofolio/Portofolio/portofolio-ngx-web",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -69,6 +67,7 @@
       <updated>1722804137155</updated>
       <workItem from="1722804138232" duration="1227000" />
       <workItem from="1722975534829" duration="75000" />
+      <workItem from="1723374312635" duration="167000" />
     </task>
     <servers />
   </component>
