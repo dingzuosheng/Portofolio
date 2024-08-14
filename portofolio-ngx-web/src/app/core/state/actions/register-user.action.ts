@@ -14,17 +14,15 @@ export const RegisterUser = createAction(
 
 export const RegisterUserSuccess = createAction(
   REGISTER_USER_SUCCESS,
-  props<User>(),
 );
 
 export const RegisterUserFail = createAction(
   REGISTER_USER_FAIL,
-  props<{error: any}>
+  props<{error: any}>(),
 );
 
 export const RegisterUserFinalizeSuccess = createAction(
   REGISTER_USER_FINALIZE_SUCCESS,
-  props<User>(),
 )
 
 export const RegisterUserFinalizeFail = createAction(
